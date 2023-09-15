@@ -265,27 +265,27 @@ pub async fn create_proxy(proxy_port: u16, certificate_path: String) {
 #[cfg(windows)]
 pub fn connect_to_proxy(proxy_port: u16) {
   // Create 'ProxyServer' string.
-  let server_string: String = format!(
-    "http=127.0.0.1:{};https=127.0.0.1:{}",
-    proxy_port, proxy_port
-  );
+  // let server_string: String = format!(
+  //   "http=127.0.0.1:{};https=127.0.0.1:{}",
+  //   proxy_port, proxy_port
+  // );
 
-  // Fetch the 'Internet Settings' registry key.
-  let settings = Hive::CurrentUser
-    .open(
-      r"Software\Microsoft\Windows\CurrentVersion\Internet Settings",
-      // Only write should be needed but too many cases of Culti not being able to read/write proxy settings
-      Security::AllAccess,
-    )
-    .unwrap();
+  // // Fetch the 'Internet Settings' registry key.
+  // let settings = Hive::CurrentUser
+  //   .open(
+  //     r"Software\Microsoft\Windows\CurrentVersion\Internet Settings",
+  //     // Only write should be needed but too many cases of Culti not being able to read/write proxy settings
+  //     Security::AllAccess,
+  //   )
+  //   .unwrap();
 
-  // Set registry values.
-  settings
-    .set_value("ProxyServer", &Data::String(server_string.parse().unwrap()))
-    .unwrap();
-  settings.set_value("ProxyEnable", &Data::U32(1)).unwrap();
+  // // Set registry values.
+  // settings
+  //   .set_value("ProxyServer", &Data::String(server_string.parse().unwrap()))
+  //   .unwrap();
+  // settings.set_value("ProxyEnable", &Data::U32(1)).unwrap();
 
-  println!("Connected to the proxy.");
+  // println!("Connected to the proxy.");
 }
 
 #[cfg(target_os = "linux")]
@@ -318,17 +318,17 @@ pub fn connect_to_proxy(_proxy_port: u16) {
 #[cfg(windows)]
 pub fn disconnect_from_proxy() {
   // Fetch the 'Internet Settings' registry key.
-  let settings = Hive::CurrentUser
-    .open(
-      r"Software\Microsoft\Windows\CurrentVersion\Internet Settings",
-      Security::AllAccess,
-    )
-    .unwrap();
+  // let settings = Hive::CurrentUser
+  //   .open(
+  //     r"Software\Microsoft\Windows\CurrentVersion\Internet Settings",
+  //     Security::AllAccess,
+  //   )
+  //   .unwrap();
 
-  // Set registry values.
-  settings.set_value("ProxyEnable", &Data::U32(0)).unwrap();
+  // // Set registry values.
+  // settings.set_value("ProxyEnable", &Data::U32(0)).unwrap();
 
-  println!("Disconnected from proxy.");
+  // println!("Disconnected from proxy.");
 }
 
 #[cfg(target_os = "linux")]
